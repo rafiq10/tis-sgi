@@ -1,0 +1,10 @@
+Nav {
+  background-color: #003245;
+  color: white;
+}
+
+Image {
+  width: 100px;
+   height: 100px;
+  justify-content: flex-end;
+}
