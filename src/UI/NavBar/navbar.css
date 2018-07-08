@@ -4,7 +4,6 @@ Nav {
 }
 
 Image {
-  width: 100px;
-   height: 100px;
+
   justify-content: flex-end;
 }

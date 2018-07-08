@@ -5,7 +5,7 @@ import logo from '../../logo.png'
 const footer = () =>{
   return(
         <StickyFooter
-            bottomThreshold={0}
+            bottomThreshold={50}
             normalStyles={{
               backgroundColor: "#003245",
               color: "white",
@@ -18,11 +18,16 @@ const footer = () =>{
               width: "100%"
             }}
         >
-          © 2018 SGI  
-          <div className="row">
-            <span className="col l10 m8 s6 offset-l10 offset-m8 offset-s5"><img src={logo} alt="x" height="40" /></span>
+          <div class="footer">
+            <div class="text-lighten-3">
+            © 2018 SGI
+            </div>
+            <div class="row">
+              <span class="col l10 m8 s6 offset-l10 offset-m8 offset-s5"><img src={logo} style={{height: '30px'}}/></span>
+            </div>
           </div>
         </StickyFooter>
+
   )
 
   
