@@ -9,8 +9,6 @@ import authReducer from './store/reducers/auth';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSIONS_COMPOSE__
-
 const rootReducer = combineReducers({
   auth: authReducer,
 })
@@ -19,9 +17,9 @@ const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
 const app = (
 
   <Provider store={store}>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 )
 

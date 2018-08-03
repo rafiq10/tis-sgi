@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
+import M from 'materialize-css';
 import * as actions from '../../store/actions/index'
 import LoginHeader from '../../UI/LoginHedader/LoginHeader';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -13,9 +15,12 @@ class login extends React.Component{
     user: '',
     password: '',
     token: '',
-    isLoading: false
+    isLoading: false,
+    countries: [],
+    country: this.defaultCountry
   }
 
+  defaultCountry = "ESP"
   inputStyle = {color: '#005466',
                     borderBottom: "1px solid #005466",
                     boxShadow: "0 1px 0 0 #005466",
@@ -23,14 +28,52 @@ class login extends React.Component{
 
   labelStyle = {color: '#005466'}
 
+  selectStyle = {selectDropdowBorderBottom: 'none'}
+
   submitFormHandler = (event)=>{
     event.preventDefault();
     this.props.onAuth(this.state.user,this.state.password)
   }
 
-  
+  onSelectChange = (e)=>{
+    this.setState({
+      ...this.state,
+      country: e.target.value
+    })
+    localStorage.setItem('country', e.target.value)
+  }
+
+  componentDidMount(){
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems, null);
+    });
+
+    localStorage.setItem('country', this.defaultCountry)
+    axios.get('http://10.102.192.12:5000/api/countries-list/')
+      .then(res =>{
+        let myCountries = []
+        
+        res.data.map(c => {
+          myCountries.push(c.countryShort)
+        })
+        this.setState({
+          ...this.state,
+          countries: myCountries
+        })
+        console.log(res.data)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+
+  }
 
   render(){
+    let myCountries = this.state.countries.map((c,idx) => {
+      return(<option key={c} value={c}>{c}</option>)
+    })
+
     let MyForm = (<form className="col s12" onSubmit={this.submitFormHandler.bind(this)}>
                     <div className="row">
                         <div className="input-field col s8 m5 l3">
@@ -57,6 +100,14 @@ class login extends React.Component{
                                 />
                         <label htmlFor="pwd" style={this.labelStyle}>Clave</label>
                       </div>
+                    </div>
+                    <div className="row">
+                    <div className="input-field col s12 m6 l2">
+                    <i style={this.labelStyle} className="material-icons prefix">language</i>
+                      <select onChange={this.onSelectChange} defaultValue={this.defaultCountry} style={{marginLeft: '50px', width: '210px', color: '#005466'}} className="browser-default">
+                        {myCountries}
+                      </select>
+                    </div>
                     </div>
                     <div className="row">
                       <button 

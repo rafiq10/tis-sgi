@@ -1,6 +1,7 @@
 
 import * as actionsTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
+import { authCheckState } from '../actions';
 
 const initialState = {
   token: null,
@@ -37,6 +38,7 @@ const reducer = (state = initialState, action) =>{
     case actionsTypes.AUTH_FAIL: return authFail(state,action)
     case actionsTypes.AUTH_SUCCESS: return authSuccess(state,action)
     case actionsTypes.AUTH_LOGOUT: return authLogout(state, action)
+    case actionsTypes.AUTH_CHECK_STATE: return authCheckState(state,action)
     default: return state;
   }
 }

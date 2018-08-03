@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './navbar.css'
+import brandColors from '../CorporateBrand/colors.css'
 import 'react-sticky-header/styles.css';
 import M from 'materialize-css';
 import { NavLink } from 'react-router-dom';
@@ -20,7 +21,7 @@ class navBar extends React.Component {
                     }
     return(
       <div>
-        <nav className={classes.Nav}>
+        <nav className={[classes.Nav, brandColors.Blue10].join(' ')}>
           <div className="nav-wrapper">
             <NavLink to="/" className="brand-logo"><i className="material-icons text-blue lighten-5">home</i>Inicio</NavLink>
             <ul className="right hide-on-med-and-down">
@@ -44,7 +45,7 @@ class navBar extends React.Component {
             </div>
           </div>      
       </nav>  
-      <p style={{padding: "20px"}}></p>
+      <p style={{paddingBottom: "20px"}}></p>
     </ div>
       
     )

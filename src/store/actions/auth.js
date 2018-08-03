@@ -43,15 +43,16 @@ export const logout = () => {
 export const auth = (data) =>{
   return dispatch => {
     const myData = {user: data.user, Password: data.password}
+    
     return axios.post('http://10.102.192.12:5000/api/login',myData)
                   .then( res => {
-                    console.log(res.data);
                     const token = res.data.token
                     const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
                     localStorage.setItem('token', token);
                     localStorage.setItem('expiresIn', expirationDate)
                     localStorage.setItem('userName', res.data.userName)
                     localStorage.setItem('userTF', res.data.userTF)
+                    
                     dispatch(authSuccess(res.data));
                     dispatch(checkAuthTimeOut(res.data.expiresIn))
                   })
@@ -62,13 +63,17 @@ export const auth = (data) =>{
 }
 
 export const authCheckState = () =>{
+  
   return dispatch =>{
     const token = localStorage.getItem('token');
+    console.log(token)
     if(!token){
       dispatch(logout())
     }else{
       const expiresIn = new Date(localStorage.getItem('expiresIn'));
+      console.log(expiresIn)
       if (expiresIn > new Date()){
+        
         const userTF = localStorage.getItem('userTF')
         const userName = localStorage.getItem('userName')
         dispatch(authSuccess({token,userTF,userName}));

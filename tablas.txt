@@ -1,0 +1,9 @@
+lineas_Partes
+
+Partes_Trabajo - uno por ems empleado
+
+
+t022_PartesTrabajoEstado
+
+Periodos_RRHH
+

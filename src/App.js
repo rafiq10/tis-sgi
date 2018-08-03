@@ -8,9 +8,30 @@ import Main from './containers/Main/Main';
 import Login from './containers/Login/Login';
 import Logout from './containers/Login/Logout';
 import Partes from './containers/Personal/PartesDeTrabajo/PtList/PrtesDeTrabajoList';
+import DetalleParte from './containers/Personal/PartesDeTrabajo/PtList/DetallePt/ParteDeTrabajo';
 
+import Infinite from 'react-infinite';
+import {Header,Footer} from './UI/index';
 
 class App extends Component {
+  state = { 
+    width: 0,
+    height: 0 
+  };
+
+componentDidMount() {
+this.updateWindowDimensions();
+window.addEventListener('resize', this.updateWindowDimensions);
+}
+
+componentWillUnmount() {
+window.removeEventListener('resize', this.updateWindowDimensions);
+}
+
+updateWindowDimensions = () => {
+this.setState({width: window.innerWidth, height: window.innerHeight})
+}
+
   render() {
     let routes = (
       <div>
@@ -19,21 +40,23 @@ class App extends Component {
       </div>
     )
 
-    if (this.props.isAuthenticated) {
       routes = (
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/partes-list" component={Partes} />
           <Route exact path="/logout" component={Logout} />
-          <Redirect to="/" />
+          <Route exact path="/detalle-parte/:id" component={DetalleParte} />
+          <Redirect to="/login" />
         </Switch>
       )
-    }
+
     return (
-        <div>
-        {routes}
-        </div>
+        <Infinite containerHeight={window.innerHeight} elementHeight={200}>
+          <Header />
+            {routes}
+          <Footer />
+        </Infinite>
     );
   }
 }

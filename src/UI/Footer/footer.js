@@ -1,36 +1,44 @@
 import React from 'react';
-import StickyFooter from 'react-sticky-footer';
-import logo from '../../logo.png'
+import logo from '../../logo.png';
 
 const footer = () =>{
+  const Footer = {
+    color: 'white',
+    backgroundColor: '#003245',
+    padding: '50px',
+    position: 'fixed',
+    left: '0',
+    bottom: '0',
+    height: '100px',
+    width: '100%',
+    zIndex: 1
+  }
+  const Phantom = {
+    color: 'white',
+    backgroundColor: 'transparent',
+    padding: '50px',
+    position: 'relative',
+    left: '0',
+    bottom: '0',
+    height: '100px',
+    width: '100%',
+  }
   return(
-        <StickyFooter
-            bottomThreshold={50}
-            normalStyles={{
-              backgroundColor: "#003245",
-              color: "white",
-              padding: "1.2rem"
-            }}
-            stickyStyles={{
-              backgroundColor: "rgba(0, 50, 69, .9)",
-              color: "white",
-              padding: "1.2rem",
-              width: "100%"
-            }}
-        >
-          <div class="footer">
-            <div class="text-lighten-3">
+    <div>
+      <div style={Phantom}></div>
+      <footer style={Footer} className="page-footer">
+        <div className="container">
+          <div className="row">
+            <div className="col s8 m9 l10 text-lighten-3">
             © 2018 SGI
             </div>
-            <div class="row">
-              <span class="col l10 m8 s6 offset-l10 offset-m8 offset-s5"><img src={logo} style={{height: '30px'}}/></span>
+            <div className="col s4 m3 l2">
+              <img src={logo} alt="tis" style={{height: '30px'}}/>
             </div>
           </div>
-        </StickyFooter>
-
-  )
-
-  
-}
+        </div>
+      </footer>
+    </div>
+  )}
 
 export default footer;

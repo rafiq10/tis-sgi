@@ -1,38 +1,18 @@
 import React, { Component } from 'react';
-import {Header,Footer} from '../../UI/index';
 import Login from '../Login/Login';
 import Card from '../../components/card/card';
-import Infinite from 'react-infinite';
 
 
 class Main extends Component {
 
-  state = { 
-            width: 0,
-            height: 0 
-          };
-
-componentDidMount() {
-  this.updateWindowDimensions();
-  window.addEventListener('resize', this.updateWindowDimensions);
-}
-
-componentWillUnmount() {
-  window.removeEventListener('resize', this.updateWindowDimensions);
-}
-
-updateWindowDimensions = () => {
-  this.setState({width: window.innerWidth, height: window.innerHeight})
-}
-
   render() {
     const token = localStorage.getItem('token')
+    const expiresIn = new Date(localStorage.getItem('expiresIn'));
     return (
-      <Infinite containerHeight={window.innerHeight} elementHeight={200}>
-        {!token
+      <div>
+        {!token || (expiresIn < new Date())
           ? <Login />
           : <div>
-            <Header /> 
             <div  className='row'>
             <div className='col l6'>
             <Card 
@@ -82,11 +62,10 @@ updateWindowDimensions = () => {
             />
             </div>
             </div>
-            <Footer />
             </div>
         }        
-      
-      </Infinite>
+      </div>
+    
     );
   }
 }
