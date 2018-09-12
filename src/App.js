@@ -42,21 +42,23 @@ this.setState({width: window.innerWidth, height: window.innerHeight})
 
       routes = (
         <Switch>
-          <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/partes-list" component={Partes} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/detalle-parte/:id" component={DetalleParte} />
+          <Route path="/" component={Main} />
           <Redirect to="/login" />
         </Switch>
       )
 
     return (
-        <Infinite containerHeight={window.innerHeight} elementHeight={200}>
+      <div>
+        {/* <Infinite containerHeight={window.innerHeight} elementHeight={200}> */}
           <Header />
             {routes}
           <Footer />
-        </Infinite>
+        {/* </Infinite> */}
+      </div>
     );
   }
 }

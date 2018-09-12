@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import {SiteUrl} from '../../Global';
 
 export const authStart = () =>{
   return {
@@ -42,9 +43,9 @@ export const logout = () => {
 }
 export const auth = (data) =>{
   return dispatch => {
-    const myData = {user: data.user, Password: data.password}
-    
-    return axios.post('http://10.102.192.12:5000/api/login',myData)
+    const myData = {user: data.user, Password: data.password, country: data.country}
+    console.log(myData)
+    return axios.post(SiteUrl + 'login',myData)
                   .then( res => {
                     const token = res.data.token
                     const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)

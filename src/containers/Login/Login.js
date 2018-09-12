@@ -8,6 +8,7 @@ import * as actions from '../../store/actions/index'
 import LoginHeader from '../../UI/LoginHedader/LoginHeader';
 import Spinner from '../../UI/Spinner/Spinner';
 import ErrPage from '../../UI/Error/Error';
+import {SiteUrl} from '../../Global';
 
 class login extends React.Component{
 
@@ -17,7 +18,7 @@ class login extends React.Component{
     token: '',
     isLoading: false,
     countries: [],
-    country: this.defaultCountry
+    country: "ESP"
   }
 
   defaultCountry = "ESP"
@@ -32,7 +33,8 @@ class login extends React.Component{
 
   submitFormHandler = (event)=>{
     event.preventDefault();
-    this.props.onAuth(this.state.user,this.state.password)
+    console.log(this.state.country)
+    this.props.onAuth(this.state.user,this.state.password, this.state.country)
   }
 
   onSelectChange = (e)=>{
@@ -50,7 +52,7 @@ class login extends React.Component{
     });
 
     localStorage.setItem('country', this.defaultCountry)
-    axios.get('http://10.102.192.12:5000/api/countries-list/')
+    axios.get(SiteUrl+'countries-list/')
       .then(res =>{
         let myCountries = []
         
@@ -61,7 +63,6 @@ class login extends React.Component{
           ...this.state,
           countries: myCountries
         })
-        console.log(res.data)
       })
       .catch(err=>{
         console.log(err)
@@ -152,13 +153,19 @@ const mapsStateToProps = state =>{
     userName: state.auth.YserName,
     error: state.auth.error,
     isLoading: state.auth.isLoading,
+    country: state.auth.country,
     isAuthenticated: state.auth.token !== null
   }
 }
 
 const mapDispatchToProps = dispatch =>{
   return {
-    onAuth: (user,password) => dispatch(actions.auth ({user,password}))
+    
+    onAuth: (user,password, country) => {
+      console.log(country)
+      dispatch(actions.auth ({user,password, country}))
+
+    }
   }
 
 }

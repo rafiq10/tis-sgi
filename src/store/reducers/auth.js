@@ -8,7 +8,8 @@ const initialState = {
   userTF: null,
   userName: null,
   error: null,
-  isLoading: false
+  isLoading: false,
+  country: null,
 }
 
 const authStart = (state) =>{
@@ -16,12 +17,15 @@ const authStart = (state) =>{
 }
 
 const authSuccess = (state, action) =>{
+  console.log(action)
   authStart(state)
   return updateObject(state, {
     token: action.token, 
     userTF: action.userTF, 
     userName: action.userName, 
-    isLoading: false})
+    isLoading: false,
+    country: action.country,
+  })
 }
 
 const authFail = (state, action) =>{
@@ -33,6 +37,7 @@ const authLogout = (state, action) =>{
 }
 
 const reducer = (state = initialState, action) =>{
+  
   switch (action.type) {
     case actionsTypes.AUTH_START: return authStart(state,action)
     case actionsTypes.AUTH_FAIL: return authFail(state,action)

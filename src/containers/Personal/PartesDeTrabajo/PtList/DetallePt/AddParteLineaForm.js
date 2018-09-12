@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import M from 'materialize-css';
+import {SiteUrl} from '../../../../../Global'
 
 class AddParteLineaForm extends React.Component{
   state = {
@@ -91,7 +92,7 @@ class AddParteLineaForm extends React.Component{
 
     const userTF = localStorage.getItem('userTF');
     const token = localStorage.getItem('token');
-    axios.get('http://10.102.192.12:5000/api/projects-list/' + userTF, 
+    axios.get(SiteUrl+'projects-list/' + userTF, 
             {headers: {'x-access-token': token}})
       .then( res => {
         let newPepList =this.state.pepList

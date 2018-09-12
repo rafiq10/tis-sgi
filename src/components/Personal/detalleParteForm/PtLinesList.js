@@ -4,7 +4,7 @@ const LinesList = (props) =>{
 
   let myNewParts = null
   let btnPresent = <div></div>
-  if(props.estadoParte===4 && props.hoursNum === props.hoursSum){
+  if(props.estadoParte!==2 && props.hoursNum === props.hoursSum){
     btnPresent = (
       <li className="collection-item right">
       <div className="input-field col s12 m6 l1">
@@ -22,7 +22,7 @@ const LinesList = (props) =>{
 
 
   myNewParts =props.listLines.map((p, idx) =>{
-    const btn = (props.estadoParte===4 ?
+    const btn = (props.estadoParte!==2 ?
       <div className="input-field col s12 m1 l1">
         <button 
           id={p.Id_Lin_parte} 

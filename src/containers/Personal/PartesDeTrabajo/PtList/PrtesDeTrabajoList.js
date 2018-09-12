@@ -2,28 +2,57 @@ import React from 'react';
 import axios from 'axios';
 import ParteDeTrabajo from '../../../../components/Personal/parteDeTrabajo';
 import Login from '../../../Login/Login';
-
+import {SiteUrl} from '../../../../Global'
 class PartesList extends React.Component {
   state = {
     listaPartes: [],
     isLoading: true,
     errDescr: null,
     currentPage: 1,
-    itemsPerPage: 6
+    itemsPerPage: 6,
+    addButtonVisible: false,
   }
 
   componentDidMount(){
     const userTF = localStorage.getItem('userTF');
     const token = localStorage.getItem('token');
 
-    axios.get('http://10.102.192.12:5000/api/partesTrabajoList/' + userTF, {headers: {'x-access-token': token}})
+    axios.get(SiteUrl+'partesTrabajoList/' + userTF, {headers: {'x-access-token': token}})
     .then(res =>{
       this.setState({listaPartes: res.data}) 
       this.setState({isLoading: false})
+      const myDateStr = String(this.state.listaPartes[0].FechaContable).substring(0,10)
+
+      console.log(myDateStr.substring(5,7))
+      const myDate = new Date(myDateStr.substring(0,4),myDateStr.substring(5,7),myDateStr.substring(9,10) )
+      if(myDate<new Date()){
+        this.setState({
+          ...this.state,
+          addButtonVisible: true
+        })
+      }else{
+        this.setState({
+          ...this.state,
+          addButtonVisible: false
+        })
+      }
     })
     .catch((err)=>{
       this.setState({errDescr: err.response.status + ': ' + err.response.data.message})
     })
+  }
+
+  addedParteTrabajo = ()=>{
+    const userTF = localStorage.getItem('userTF');
+    const token = localStorage.getItem('token');
+    console.log(token)
+    axios.post(SiteUrl+'partesTrabajoList/' + userTF,{},{headers: {'x-access-token': token}})
+      .then(res=>{
+        window.location.reload()
+      })
+      .catch(err=>{
+        console.log(err)
+      })
   }
 
   onPageNumClickHandle = (event) => {
@@ -120,6 +149,7 @@ class PartesList extends React.Component {
           key={number}
           id={number}
           onClick={this.onPageNumClickHandle}
+          style={{margin: '5px'}}
           className={this.state.currentPage==={number} ? "active" : "waves-effect"}
         >
           {number}
@@ -127,7 +157,9 @@ class PartesList extends React.Component {
       );
     });
 
-      myTitle = (<div>
+      myTitle = (this.state.addButtonVisible===true
+                ?
+                <div>
                   <h3>Tus partes de trabajo</h3>
                   <div className="input-field col s12 m6 l2">
                     <button 
@@ -140,6 +172,8 @@ class PartesList extends React.Component {
                       ><i className="material-icons right">add_box</i>Añade parte</button>
                   </div>
                 </div>
+                :
+                <div />
       )
       partes = this.state.listaPartes.map((p,index) => {
         return(
@@ -172,7 +206,7 @@ class PartesList extends React.Component {
             <li key="0" className="collection-header">{myTitle}</li>
             {renderPartes}
           </ul>
-          <ul id="page-numbers" className="pagination">
+          <ul id="page-numbers" className="pagination large">
             {/* <li  className="waves-effect" onClick={this.onLeftPaginationClickHandle}><a><i className="material-icons">chevron_left</i></a></li> */}
             {renderPageNumbers}
             {/* <li className={this.getRightArrowClass} onClick={this.onRightPaginationClickHandle}><a><i className="material-icons">chevron_right</i></a></li> */}

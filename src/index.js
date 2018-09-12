@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import authReducer from './store/reducers/auth';
 
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -24,4 +24,4 @@ const app = (
 )
 
 ReactDOM.render(app, document.getElementById('root'));
-registerServiceWorker();
+

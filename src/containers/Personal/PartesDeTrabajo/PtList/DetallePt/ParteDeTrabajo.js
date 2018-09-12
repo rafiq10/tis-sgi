@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router'
 
 import ParteLineaForm from './AddParteLineaForm';
 import ParteTrabajoInfo from '../../../../../components/Personal/detalleParteForm/ParteDeTrabajo'
 import LinesList from '../../../../../components/Personal/detalleParteForm/PtLinesList';
-
+import {SiteUrl} from '../../../../../Global'
 class ParteDeTrabajo extends React.Component {
 
   state = {
@@ -25,10 +26,11 @@ class ParteDeTrabajo extends React.Component {
     hoursSum: 0,
   }
 
+  api_base_url = SiteUrl
   checkOne = (a) =>{
     const token = localStorage.getItem('token');
 
-    axios.post('http://10.102.192.12:5000/api/detalleParte/' + this.props.match.params.id, 
+    axios.post(this.api_base_url + 'detalleParte/' + this.props.match.params.id, 
       {
         PEP: a.selectedPep, 
         NumHours: a.hours, 
@@ -50,11 +52,11 @@ class ParteDeTrabajo extends React.Component {
 
   onLineDelete = (id) =>{
     const token = localStorage.getItem('token');
-    axios.delete('http://10.102.192.12:5000/api/detalleParte/' + id, 
+    axios.delete(this.api_base_url + 'detalleParte/' + id, 
         {headers: 
           {'x-access-token': token}})
     .then( res => {
-      window.location.reload()
+      withRouter.push(this.props.location.pathname)
     })
     .catch(err =>{
 
@@ -71,9 +73,9 @@ class ParteDeTrabajo extends React.Component {
     const myDay = myDate.getDate().toString();
     const fechaFirma = myYear + '-' + myMonth + '-' + myDay
 
-    console.log({EstadoParte: 1, FirmaEmpleado: userName, Fecha_firma_empleado: fechaFirma})
+    console.log(this.props)
     
-    axios.put('http://10.102.192.12:5000/api/detalleParte/' + this.props.match.params.id, 
+    axios.put(this.api_base_url + 'detalleParte/' + this.props.match.params.id, 
       {EstadoParte: 1, FirmaEmpleado: userName, Fecha_firma_empleado: fechaFirma},
       {headers: 
         {'x-access-token': token}})
@@ -86,11 +88,12 @@ class ParteDeTrabajo extends React.Component {
     })
   }
   componentDidMount(){
+    console.log(this.props)
     const token = localStorage.getItem('token');
     const myDate = new Date()
 
 
-    axios.get('http://10.102.192.12:5000/api/detalleParte/' + this.props.match.params.id, 
+    axios.get(this.api_base_url + 'detalleParte/' + this.props.match.params.id, 
             {headers: 
               {'x-access-token': token}})
       .then( res => {
@@ -122,7 +125,7 @@ class ParteDeTrabajo extends React.Component {
         this.setState({...this.state,errDescr: err + ': ' + err})
       })
 
-      axios.get('http://10.102.192.12:5000/api/lineas-parte/' + this.props.match.params.id, 
+      axios.get(this.api_base_url + 'lineas-parte/' + this.props.match.params.id, 
                 {headers: {'x-access-token': token}})
         .then(res=>{
           let newListLines = this.state.listLines
