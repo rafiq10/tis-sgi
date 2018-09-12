@@ -6,6 +6,7 @@ import ParteLineaForm from './AddParteLineaForm';
 import ParteTrabajoInfo from '../../../../../components/Personal/detalleParteForm/ParteDeTrabajo'
 import LinesList from '../../../../../components/Personal/detalleParteForm/PtLinesList';
 import {SiteUrl} from '../../../../../Global'
+
 class ParteDeTrabajo extends React.Component {
 
   state = {
@@ -168,7 +169,7 @@ class ParteDeTrabajo extends React.Component {
           hoursSum={this.state.hoursSum}
           onLinesPresent={this.onLinesPresent}
         />
-        {this.state.pt.estadoNum===4 ? 
+        {this.state.pt.estadoNum!==2 ? 
         <ParteLineaForm 
         checkOne={this.checkOne}
         sumHours= {this.state.hoursSum}

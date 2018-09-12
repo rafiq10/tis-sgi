@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import classes from './font.css';
 
 const ParteDeTrabajo = (props) =>{
   return(
-    <li key={props.ptId} className="collection-item">
+    <li style={classes.MyFont} key={props.ptId} className="collection-item">
       <div className="row">
         {/* <i style={{color: 'white',backgroundColor: 'rgba(0,0,0,0.7)'}} className="material-icons circle hide-on-small-only s0 l2">person</i> */}
 

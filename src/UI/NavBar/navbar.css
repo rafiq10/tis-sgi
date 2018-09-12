@@ -1,8 +1,10 @@
 @import url("../CorporateBrand/colors.css");
+@import url('../fonts/fonts.css');
 
 Nav {
   color: white;
   width: 100%;
+  font-family: 'tlfFont';
 }
 
 Image {

@@ -3,6 +3,8 @@ import axios from 'axios';
 import ParteDeTrabajo from '../../../../components/Personal/parteDeTrabajo';
 import Login from '../../../Login/Login';
 import {SiteUrl} from '../../../../Global'
+import classes from '../../../../UI/fonts/fonts.css';
+
 class PartesList extends React.Component {
   state = {
     listaPartes: [],
@@ -160,7 +162,7 @@ class PartesList extends React.Component {
       myTitle = (this.state.addButtonVisible===true
                 ?
                 <div>
-                  <h3>Tus partes de trabajo</h3>
+                  <h3 style={classes.tlfFont}>Tus partes de trabajo</h3>
                   <div className="input-field col s12 m6 l2">
                     <button 
                       style={{backgroundColor: "#005466"}} 
