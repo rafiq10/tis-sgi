@@ -2,6 +2,8 @@ import React from 'react';
 import classes from './navbar.css'
 import brandColors from '../CorporateBrand/colors.css'
 import 'react-sticky-header/styles.css';
+import powerOff from '../icons/Power_blanco.png'
+import userIcon from '../icons/Usuario_blanco.png'
 import M from 'materialize-css';
 import { NavLink } from 'react-router-dom';
 
@@ -23,13 +25,24 @@ class navBar extends React.Component {
       <div>
         <nav className={[classes.Nav, brandColors.Blue10].join(' ')}>
           <div className="nav-wrapper">
-            <NavLink to="/" className="brand-logo"><i className="material-icons text-blue lighten-5">home</i>Inicio</NavLink>
+            <NavLink to="/" className="brand-logo">
+              {/* <i className="material-icons text-blue lighten-5">home</i> */}
+              Inicio</NavLink>
             <ul className="right hide-on-med-and-down">
-              <li><NavLink to="/"><i className="material-icons">home</i>Inicio</NavLink></li>
-              <li><NavLink to="/partes-list"><i className="material-icons">people</i>Personal</NavLink></li>
+              {/* <li><NavLink to="/">
+                <i className="material-icons">home</i>
+                <i className="material-icons"></i>
+                Inicio</NavLink></li> */}
+              <li><NavLink to="/partes-list">
+                <img  src={userIcon} alt="fireSpot" style={{height: "25px", width: "25px", padding: "2px", margin: "20px"}}></img>
+                <i style={{height: '0'}} className="material-icons"></i>Personal</NavLink></li>
               {!localStorage.getItem('token')
-                ? <li><NavLink to="/login"><i className="material-icons">person</i>Log In</NavLink></li>
-                : <li><NavLink to="/logout"><i className="material-icons">power_settings_new</i>Log Out</NavLink></li>
+                ? <li><NavLink to="/login">
+                  <img  src={powerOff} alt="fireSpot" style={{height: "25px", width: "25px", padding: "2px", margin: "20px"}}></img>
+                <i style={{height: '0'}} className="material-icons"></i>Log In</NavLink></li>
+                : <li><NavLink to="/logout">
+                  <img  src={powerOff} alt="fireSpot" style={{height: "25px", width: "25px", padding: "2px", margin: "20px"}}></img>
+                  <i style={{height: '0'}} className="material-icons"></i>Log Out</NavLink></li>
               }
             </ul>
             <NavLink to="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></NavLink>
@@ -38,8 +51,14 @@ class navBar extends React.Component {
                 <li><NavLink to="/" style={sideNavStyle} className="sidenav-close"><i style={sideNavStyle} className="material-icons">home</i>Inicio</NavLink></li>
                 <li><NavLink to="/partes-list" style={sideNavStyle} className="sidenav-close"><i style={sideNavStyle} className="material-icons">people</i>Personal</NavLink></li>
                 {!localStorage.getItem('token')
-                  ? <li><NavLink to="/login" style={sideNavStyle} className="sidenav-close"><i style={sideNavStyle} className="material-icons">person</i>Log In</NavLink></li>
-                  : <li><NavLink to="/logout" style={sideNavStyle} className="sidenav-close"><i style={sideNavStyle} className="material-icons">power_settings_new</i>Log Out</NavLink></li>
+                  ? <li><NavLink to="/login" style={sideNavStyle} className="sidenav-close">
+                    <img  src={userIcon} alt="fireSpot" style={{height: "20px", width: "20px"}}></img>
+                    <i style={sideNavStyle} className="material-icons"></i>
+                    Log In</NavLink></li>
+                  : <li><NavLink to="/logout" style={sideNavStyle} className="sidenav-close">
+                    <img  src={powerOff} alt="fireSpot" style={{height: "20px", width: "20px", backgroundColor: "#2593B5"}}></img>
+                    <i style={sideNavStyle} className="material-icons"></i>
+                    Log Out</NavLink></li>
                 }
               </ul>
             </div>

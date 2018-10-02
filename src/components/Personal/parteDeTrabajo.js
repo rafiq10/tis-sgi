@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import classes from './font.css';
+import calendarIcon from '../../UI/icons/Calendar.png'
 
 const ParteDeTrabajo = (props) =>{
   return(
@@ -12,13 +13,14 @@ const ParteDeTrabajo = (props) =>{
           <span style={{color: 'rgba(0,0,0,0.7)'}} className="title">{props.Firma_empleado}</span>
         </div>
         <div className="col s0 l2">
-            <i style={{color: 'rgba(0,0,0,0.7)'}} className="material-icons hide-on-small-only">today</i>
+        <img  src={calendarIcon} alt="fireSpot" style={{height: "20%", width: "20%", marginTop: "5px",marginRight: "5px", left: "0"}}></img>
+            {/* <i style={{color: 'rgba(0,0,0,0.7)'}} className="material-icons hide-on-small-only">today</i> */}
             {props.FechaContable.substring(0,10)} 
         </div>
         <div style={{color: 'rgba(0,0,0,0.7)'}} className="col s3 l2">
             Horas: {props.Horas} 
         </div>
-        <div style={{color: 'rgba(150,0,0,0.7)'}} className="col s3 l2">
+        <div style={{color: 'rgb(255,123,0)'}} className="col s3 l2">
             {props.EstadoParte}
         </div>
         <div className="col l2">

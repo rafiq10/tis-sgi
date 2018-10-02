@@ -1,4 +1,5 @@
 import React from 'react';
+import userIcon from '../../../UI/icons/Usuario_blanco.png'
 
 const DetalleParte = (props) =>{
 
@@ -6,7 +7,8 @@ const DetalleParte = (props) =>{
     <ul className="collection">
       <li key={props.ptId} className="collection-item avatar">
         <div className="row">
-          <i style={{color: 'white',backgroundColor: 'rgba(0,0,0,0.7)'}} className="material-icons circle hide-on-small-only s0 l2">person</i> 
+          <img  src={userIcon} alt="fireSpot" style={{height: "150%", width: "150%", marginTop: "10px",marginRight: "10px", borderRadius: '50%'}}></img>
+          {/* <i style={{color: 'white',backgroundColor: 'rgba(0,0,0,0.7)'}} className="material-icons circle hide-on-small-only s0 l2">person</i>  */}
 
           <div className="col s12 l2">
             <span style={{color: 'rgba(0,0,0,0.7)'}} className="title">{props.pt.NbEmpleado}</span>

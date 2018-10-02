@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import https from 'https';
+import request from 'request';
 
 import M from 'materialize-css';
 import * as actions from '../../store/actions/index'
@@ -9,6 +11,10 @@ import LoginHeader from '../../UI/LoginHedader/LoginHeader';
 import Spinner from '../../UI/Spinner/Spinner';
 import ErrPage from '../../UI/Error/Error';
 import {SiteUrl} from '../../Global';
+
+import userIcon from '../../UI/icons/Usuario_blanco.png'
+import pwdIcon from '../../UI/icons/Seguridad_blanco.png'
+import mundoIcon from '../../UI/icons/Internet_blanco.png'
 
 class login extends React.Component{
 
@@ -52,7 +58,26 @@ class login extends React.Component{
     });
 
     localStorage.setItem('country', this.defaultCountry)
-    axios.get(SiteUrl+'countries-list/')
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
+
+
+    request.get({
+      "encoding":"utf-8",
+      "method":"GET",
+      "uri":SiteUrl + "countries-list/",
+      "followRedirect":false
+    }, function (err, res, body) {
+      console.log(err);
+      console.log(res.statusCode);
+      console.log(body);
+    });
+
+
+    axios.get(SiteUrl+'countries-list/', {httpsAgent: agent,headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }})
       .then(res =>{
         let myCountries = []
         
@@ -77,8 +102,12 @@ class login extends React.Component{
 
     let MyForm = (<form className="col s12" onSubmit={this.submitFormHandler.bind(this)}>
                     <div className="row">
+                      <div className="input-field col s1 m1 l1">
+                        <img  src={userIcon} alt="fireSpot" style={{height: "25px", width: "25px", marginTop: "10px",marginRight: "10px", left: "0",backgroundColor: '#005466', padding:"2px"}}></img>
+                      </div>
                         <div className="input-field col s8 m5 l3">
-                          <i style={this.labelStyle} className="material-icons prefix">account_box</i>
+                          
+                          {/* <i style={this.labelStyle} className="material-icons prefix">account_box</i> */}
                           <input id="user" 
                                 style={this.inputStyle} 
                                 type="text"
@@ -90,8 +119,10 @@ class login extends React.Component{
                         </div>
                       </div>
                     <div className="row">
+                      <div className="input-field col s1 m1 l1">
+                        <img  src={pwdIcon} alt="fireSpot" style={{height: "25px", width: "25px", marginTop: "10px",marginRight: "10px", left: "0",backgroundColor: '#005466', padding:"2px"}}></img>
+                      </div>
                       <div className="input-field col s8 m5 l3 color: #000">
-                        <i style={this.labelStyle} className="material-icons prefix">keyboard</i>
                         <input id="pwd" 
                                 style={this.inputStyle}
                                 type="password"
@@ -103,8 +134,10 @@ class login extends React.Component{
                       </div>
                     </div>
                     <div className="row">
+                      <div className="input-field col s1 m1 l1">
+                        <img  src={mundoIcon} alt="fireSpot" style={{height: "25px", width: "25px", marginTop: "10px",marginRight: "10px", left: "0",backgroundColor: '#005466', padding:"2px"}}></img>
+                      </div>
                     <div className="input-field col s12 m6 l2">
-                    <i style={this.labelStyle} className="material-icons prefix">language</i>
                       <select onChange={this.onSelectChange} defaultValue={this.defaultCountry} style={{marginLeft: '50px', width: '210px', color: '#005466'}} className="browser-default">
                         {myCountries}
                       </select>

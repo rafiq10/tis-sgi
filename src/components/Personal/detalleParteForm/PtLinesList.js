@@ -1,5 +1,5 @@
 import React from 'react';
-
+import userIcon from '../../../UI/icons/Usuario_blanco.png'
 const LinesList = (props) =>{
 
   let myNewParts = null
@@ -9,7 +9,7 @@ const LinesList = (props) =>{
       <li className="collection-item right">
       <div className="input-field col s12 m6 l1">
           <button 
-            style={{color: 'white',backgroundColor: "#0095A7"}} 
+            style={{color: 'white', backgroundColor: "#0095A7"}} 
             className="btn waves-effect waves-light btn" 
             type="submit"
             onClick={props.onLinesPresent}
@@ -26,11 +26,12 @@ const LinesList = (props) =>{
       <div className="input-field col s12 m1 l1">
         <button 
           id={p.Id_Lin_parte} 
-          style={{backgroundColor: '#0095A7'}} 
+          style={{height: "20%", width: "55%", border: "none", backgroundColor: "#0095A7",textAlign: "center"}} 
           className="waves-effect waves-light btn" 
           type="submit"
           onClick={()=>{onParteDelete(p.id,props)}} 
           >
+          {/* <img  src={buscarIcon} alt="fireSpot" style={{height: "150%", width: "150%", marginTop: "10px",marginRight: "10px"}}></img> */}
           <i className="material-icons right center">delete</i>
         </button>
       </div>

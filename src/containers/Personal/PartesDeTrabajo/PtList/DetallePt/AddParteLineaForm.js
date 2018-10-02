@@ -27,13 +27,13 @@ class AddParteLineaForm extends React.Component{
 
     const selectedPEP = e.target.value
     
-
+    console.log(e.target)
     const token = localStorage.getItem('token');
     console.log(selectedPEP)
     console.log(this.state.defaultPEP)
 
     console.log(e.target.value === this.state.defaultPEP)
-    if (e.target.value == this.state.defaultPEP) {
+    if (e.target.value === this.state.defaultPEP) {
       axios.get(SiteUrl + 'sufijos/GG',{headers: {'x-access-token': token}})
       .then(res => {
         let newSuffixList = []
@@ -52,11 +52,14 @@ class AddParteLineaForm extends React.Component{
 
       axios.get(SiteUrl + 'is-gral/' + selectedPEP,{headers: {'x-access-token': token}})
       .then(res => {
+
+        console.log(res.data[0].TipoPep)
+
         let TipoPep = ''
         if (res.data[0].TipoPep===6) {
           TipoPep = 'GRAL'
         }
-
+        
         this.setState({
           ...this.state,
           suffixList: [TipoPep],
@@ -209,7 +212,7 @@ class AddParteLineaForm extends React.Component{
             <div className="row">
               <div className="input-field col s12 m6 l2">
                 <select className="browser-default" onChange={this.onPepChangeHandle}>
-                  <option value="" defaultValue>{this.state.defaultPEP}</option>
+                  <option value={this.state.defaultPEP} defaultValue>{this.state.defaultPEP}</option>
                   {myOps}
                 </select>
               </div>

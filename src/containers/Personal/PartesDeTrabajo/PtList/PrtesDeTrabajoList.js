@@ -40,6 +40,7 @@ class PartesList extends React.Component {
       }
     })
     .catch((err)=>{
+      console.log(err)
       this.setState({errDescr: err.response.status + ': ' + err.response.data.message})
     })
   }

@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {SiteUrl} from '../../Global';
+import https from 'https';
 
 export const authStart = () =>{
   return {
@@ -42,10 +43,22 @@ export const logout = () => {
   }
 }
 export const auth = (data) =>{
+  console.log(data)
   return dispatch => {
     const myData = {user: data.user, Password: data.password, country: data.country}
     console.log(myData)
-    return axios.post(SiteUrl + 'login',myData)
+    const instance = axios.create({
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    }
+    return instance.post(SiteUrl + 'login', myData,config)
                   .then( res => {
                     const token = res.data.token
                     const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)

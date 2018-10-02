@@ -1,4 +1,5 @@
 import React from 'react';
+import userIcon from '../../../UI/icons/Usuario_blanco.png'
 
 const ParteDeTrabajo = (props) =>{
   return(
@@ -9,7 +10,10 @@ const ParteDeTrabajo = (props) =>{
           <ul className="collection">
             <li key={props.ptId} className="collection-item avatar">
               <div className="row">
-                <i style={{color: 'white',backgroundColor: '#980098'}} className="material-icons circle hide-on-small-only s0 l2">person</i> 
+              <div className="col s16 m1 l1">
+                <img  src={userIcon} alt="fireSpot" style={{height: "50px", width: "50px", padding: "5px", left: "0",backgroundColor: '#2593B5', borderRadius: '50%', borderWidth: '0'}}></img>
+              </div>
+                {/* <i style={{color: 'white',backgroundColor: '#980098'}} className="material-icons circle hide-on-small-only s0 l2">person</i>  */}
                 <div className="col s12 m3 l2">
                   <span style={{color: 'rgba(0,0,0,0.7)'}} className="title">{props.pt.NbEmpleado}</span>
                 </div>
