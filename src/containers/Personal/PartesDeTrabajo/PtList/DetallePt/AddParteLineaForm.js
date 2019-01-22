@@ -29,11 +29,8 @@ class AddParteLineaForm extends React.Component{
     
 
     const token = localStorage.getItem('token');
-    console.log(selectedPEP)
-    console.log(this.state.defaultPEP)
 
-    console.log(e.target.value === this.state.defaultPEP)
-    if (e.target.value == this.state.defaultPEP) {
+    if (e.target.value === this.state.defaultPEP) {
       axios.get(SiteUrl + 'sufijos/GG',{headers: {'x-access-token': token}})
       .then(res => {
         let newSuffixList = []
@@ -130,13 +127,11 @@ class AddParteLineaForm extends React.Component{
             {headers: {'x-access-token': token}})
       .then( res => {
         let newPepList =this.state.pepList
-        let newSuffixList = this.state.suffixList
 
         const myPEP = res.data[0].PepGeneral
         
         res.data.map((i,index) =>{
             newPepList.push(i.pep)
-            
         })
 
         this.setState({

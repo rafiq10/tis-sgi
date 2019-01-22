@@ -47,7 +47,7 @@ class PartesList extends React.Component {
   addedParteTrabajo = ()=>{
     const userTF = localStorage.getItem('userTF');
     const token = localStorage.getItem('token');
-    console.log(token)
+
     axios.post(SiteUrl+'partesTrabajoList/' + userTF,{},{headers: {'x-access-token': token}})
       .then(res=>{
         window.location.reload()
@@ -70,7 +70,7 @@ class PartesList extends React.Component {
       currPg=0
     }else
     {
-      currPg - 1
+      currPg = currPg - 1
     }
     this.setState ({
       currentPage: currPg
@@ -78,14 +78,13 @@ class PartesList extends React.Component {
   }
 
   onRightPaginationClickHandle = () => {
-
     const iniCurrPage = this.state.currentPage
     let currPg = iniCurrPage
     if (iniCurrPage === Math.ceil(this.state.listaPartes.length / this.state.itemsPerPage)) {
       currPg = Math.ceil(this.state.listaPartes.length / this.state.itemsPerPage)
     }else
     {
-      currPg + 1
+      currPg = currPg + 1
     }
     this.setState ({
       currentPage: currPg
@@ -146,6 +145,7 @@ class PartesList extends React.Component {
     }
 
     renderPageNumbers = pageNumbers.map(number => {
+     
       return (
         <li
           key={number}
@@ -178,13 +178,19 @@ class PartesList extends React.Component {
                 <div />
       )
       partes = this.state.listaPartes.map((p,index) => {
+
+        let fCont = '1/1/1900'
+        if(p.FechaContable){
+          fCont = p.FechaContable
+        }
+        
         return(
                 <ParteDeTrabajo
                   key={index}
                   ptId={p.Id_Parte_Trabajo}
                   Firma_empleado={p.Firma_empleado}
                   Horas={p.Horas}
-                  FechaContable={p.FechaContable}
+                  FechaContable={fCont}
                   EstadoParte={p.Estado}
                   EstadoNum={p.EstadoParte}
                 >

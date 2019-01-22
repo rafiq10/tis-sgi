@@ -91,8 +91,6 @@ class ParteDeTrabajo extends React.Component {
   componentDidMount(){
     console.log(this.props)
     const token = localStorage.getItem('token');
-    const myDate = new Date()
-
 
     axios.get(this.api_base_url + 'detalleParte/' + this.props.match.params.id, 
             {headers: 
@@ -143,6 +141,7 @@ class ParteDeTrabajo extends React.Component {
             })
             
             newHours = newHours + Number(l.Horas_Parte_Trabajo)
+            return
           })
           this.setState({
             ...this.state,

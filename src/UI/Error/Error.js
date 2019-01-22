@@ -12,6 +12,7 @@ const ErrPage = (props) =>{
     </div>
   </div>
   )
+  
 }
 
 export default ErrPage;

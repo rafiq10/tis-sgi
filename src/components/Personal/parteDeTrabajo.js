@@ -3,6 +3,10 @@ import {Link} from 'react-router-dom'
 import classes from './font.css';
 
 const ParteDeTrabajo = (props) =>{
+  var fCont = '1/1/1900'
+  if(props.FechaContable){
+    fCont=props.FechaContable.substring(0,10)
+  }
   return(
     <li style={classes.MyFont} key={props.ptId} className="collection-item">
       <div className="row">
@@ -13,7 +17,7 @@ const ParteDeTrabajo = (props) =>{
         </div>
         <div className="col s0 l2">
             <i style={{color: 'rgba(0,0,0,0.7)'}} className="material-icons hide-on-small-only">today</i>
-            {props.FechaContable.substring(0,10)} 
+            {fCont} 
         </div>
         <div style={{color: 'rgba(0,0,0,0.7)'}} className="col s3 l2">
             Horas: {props.Horas} 

@@ -55,9 +55,10 @@ class login extends React.Component{
     axios.get(SiteUrl+'countries-list/')
       .then(res =>{
         let myCountries = []
-        
+        console.log(res.data)
         res.data.map(c => {
           myCountries.push(c.countryShort)
+          return 0
         })
         this.setState({
           ...this.state,

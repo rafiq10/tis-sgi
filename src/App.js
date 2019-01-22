@@ -10,7 +10,6 @@ import Logout from './containers/Login/Logout';
 import Partes from './containers/Personal/PartesDeTrabajo/PtList/PrtesDeTrabajoList';
 import DetalleParte from './containers/Personal/PartesDeTrabajo/PtList/DetallePt/ParteDeTrabajo';
 
-import Infinite from 'react-infinite';
 import {Header,Footer} from './UI/index';
 
 class App extends Component {
